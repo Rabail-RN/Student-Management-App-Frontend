@@ -1,7 +1,7 @@
 import React from "react";
 import { useState,useEffect } from "react";
 import api from "../../utils/axios";
-import "../styles/StudentForm.css"
+import "../styles/studentForm.css"
 
 const StudentForm = () => {
 
