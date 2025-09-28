@@ -19,7 +19,11 @@ const StudentForm = () => {
     useEffect(() => {
         const fetchData = async () => {
         try {
+
+            // Sending the get request to fetch all students
             const res = await api.get("/students");
+
+            // Setting the students state with the fetched data
             setStudents(res.data);
         } catch (error) {
             console.error(error);
@@ -38,11 +42,12 @@ const StudentForm = () => {
                 // Send a put request to update student in database
                 const res = await api.put(`/students/${id}`, {name, email, regNo, course});
 
-                // Updating the students list
+                // Updating the students list state
                 setStudents(
                     students.map((std) => (std.id === id ? res.data : std))
                 );
 
+                // Setting the editing state to false after update is completed
                 setIsEditing(false);
             }
             else {
@@ -54,21 +59,24 @@ const StudentForm = () => {
                 setStudents([...students, res.data]);
             }
 
-
-
             // Setting the states of variables to default
             setId(0);
             setName("");
             setEmail("");
             setRegNo("");
             setCourse("");
+
         } catch (error) {
             console.log(error);
         }
     }
 
     const handleEdit = (student) => {
+
+        // Setting the editing state as true
         setIsEditing(true);
+
+        // Setting the states with the details of student to be edited
         setId(student.id);
         setName(student.name);
         setEmail(student.email);
@@ -79,8 +87,13 @@ const StudentForm = () => {
     const handleDelete = async (studentId) => {
 
         try {
+            // Sending the delete request to delete the student from database
             await api.delete(`/students/${studentId}`);
+
+            // Updating the students list state
             setStudents(students.filter((std) => std.id !== studentId));
+
+            // If the deleted student is currently being viewed, then hiding the details and setting the selected state to null
             if (selectedStudent?.id === studentId) {
                 setShowDetails(false);
                 setSelectedStudent(null);
@@ -92,8 +105,13 @@ const StudentForm = () => {
 
     const handleView = async (id) => {
         try {
+            // Sending the get request to fetch the details of the selected student
             const res = await api.get(`/students/${id}`);
+
+            // Updating the selected state with the fetched data
             setSelectedStudent(res.data);
+
+            // Setting the show details state to true
             setShowDetails(true);
         } catch (error) {
             console.error(error);
@@ -118,7 +136,7 @@ const StudentForm = () => {
                 {students.map((std) => (
                 <li key={std.id}>
                     <span>
-                    <b>{std.name}</b> {std.email} {std.regNo} {std.course}
+                    <b>{std.name}</b> {std.regNo}
                     </span>
                     <div style={{ display: "flex", gap: "5px" }}>
                         <button onClick={() => handleView(std.id)}>View</button>
@@ -129,8 +147,17 @@ const StudentForm = () => {
                 ))}
             </ul>
 
-            {/* Student Details */}
-            {showDetails && selectedStudent && <DetailsPage std={selectedStudent} />}
+            {showDetails && selectedStudent && 
+                <div className="details-container">
+                    <h3>Student Details</h3>
+                    <p><b>ID:</b> {selectedStudent.id}</p>
+                    <p><b>Name:</b> {selectedStudent.name}</p>
+                    <p><b>Email:</b> {selectedStudent.email}</p>
+                    <p><b>Reg No:</b> {selectedStudent.regNo}</p>
+                    <p><b>Course:</b> {selectedStudent.course}</p>
+
+                </div>
+            }
 
         </div>
     )

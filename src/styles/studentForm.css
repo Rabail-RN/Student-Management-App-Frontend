@@ -11,28 +11,47 @@
     /* justify-content: center; */
     align-items: center;
     flex-direction: column;
+    gap: 10px;
 }
 
 .form-container {
-    width: 50%;
-    height: 50%;
+    width: 90%;
+    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border-radius: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .form-container form {
-    gap: 20px;
+    gap: 30px;
 }
 
 .form-container input {
     width: 100%;
     height: 50px;
     border-radius: 5px;
-    border: 1px solid black;
+    border: 0.5px solid black;
     margin: 5px;
     padding: 10px;
+}
+
+.form-container button {
+    margin: 5px;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+}
+
+.form-container button:hover {
+    margin: 5px;
+    padding: 10px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
 }
 
 .student-list {
@@ -42,6 +61,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 10px;
 }
 
 .student-list li {
@@ -50,4 +70,20 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.student-list button {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+}
+
+.student-list button:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
 }
